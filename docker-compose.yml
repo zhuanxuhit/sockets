@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    applications:
+        image: tianon/true
+        volumes:
+            - ./src:/opt/sockets
+### Nginx Server Container ##################################
+
+    sockets:
+        build:
+            context: ./sockets
+        volumes_from:
+            - applications
