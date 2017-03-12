@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD 11)
 # 指定生成目标
 #add_executable(happy_code ${SOURCE_FILES})
 add_subdirectory(basic)
+add_subdirectory(libary)
 
 
 # 查找当前目录下的所有源文件

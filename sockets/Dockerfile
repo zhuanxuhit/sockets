@@ -7,4 +7,5 @@ VOLUME ["/opt"]
 RUN apt-get update
 RUN apt-get install -y cmake
 RUN apt-get install -y build-essential
-RUN apt-get install -y man
+RUN apt-get install -y man net-tools
+RUN apt-get install libboost1.63-dev
