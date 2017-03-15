@@ -22,6 +22,7 @@ namespace muduo
 #ifdef MUDUO_STD_STRING
 using std::string;
 #else  // !MUDUO_STD_STRING
+// 此处 __gnu_cxx::__sso_string 和 std::string 接口一致，只不过是  __sso_string 对短字符做了优化
 typedef __gnu_cxx::__sso_string string;
 #endif
 
@@ -79,6 +80,7 @@ typedef __gnu_cxx::__sso_string string;
 // implicit_cast would have been part of the C++ standard library,
 // but the proposal was submitted too late.  It will probably make
 // its way into the language in the future.
+// implicit_cast 的作用是让我们明确知道我们是进行转换了
 template<typename To, typename From>
 inline To implicit_cast(From const &f)
 {
@@ -102,7 +104,7 @@ inline To implicit_cast(From const &f)
 //    if (dynamic_cast<Subclass1>(foo)) HandleASubclass1Object(foo);
 //    if (dynamic_cast<Subclass2>(foo)) HandleASubclass2Object(foo);
 // You should design the code some other way not to need this.
-
+// down_cast 是将父类class转换为子类
 template<typename To, typename From>     // use like this: down_cast<T*>(foo);
 inline To down_cast(From* f)                     // so we only accept pointers
 {
@@ -114,7 +116,7 @@ inline To down_cast(From* f)                     // so we only accept pointers
   {
     implicit_cast<From*, To>(0);
   }
-
+// 如果定义 debug模式并且灭有定义 GOOGLE_PROTOBUF_NO_RTTI，则进行动态的判断
 #if !defined(NDEBUG) && !defined(GOOGLE_PROTOBUF_NO_RTTI)
   assert(f == NULL || dynamic_cast<To>(f) != NULL);  // RTTI: debug mode only!
 #endif
