@@ -63,6 +63,7 @@ namespace muduo {
             typedef muduo::Thread::ThreadFunc ThreadFunc;
             ThreadFunc func_;
             string name_;
+            // 为什么此处是 weak_ptr ，因为刚传入进来参数的时候，我们并不进行强引用
             boost::weak_ptr<pid_t> wkTid_;
 
             ThreadData(const ThreadFunc &func,
@@ -187,6 +188,7 @@ void Thread::start() {
     assert(!started_);
     started_ = true;
     // FIXME: move(func_)
+    // 此处 tid_ 需要传递到另一执行线程，可能会出现原来的线程对象已经销毁的case，需要考虑 shared_ptr weak_ptr
     detail::ThreadData *data = new detail::ThreadData(func_, name_, tid_);
     if (pthread_create(&pthreadId_, NULL, &detail::startThread, data)) {
         started_ = false;
