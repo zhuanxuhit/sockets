@@ -6,9 +6,17 @@ add_executable(exception_test Exception_test.cc)
 target_link_libraries(exception_test muduo_base)
 add_test(NAME exception_test COMMAND exception_test)
 
+add_executable(threadpool_test ThreadPool_test.cc)
+target_link_libraries(threadpool_test muduo_base)
+add_test(NAME threadpool_test COMMAND threadpool_test)
+
 add_executable(thread_test Thread_test.cc)
 target_link_libraries(thread_test muduo_base)
 add_test(NAME thread_test COMMAND thread_test)
+
+add_executable(mutex_test Mutex_test.cc)
+target_link_libraries(mutex_test muduo_base)
+add_test(NAME mutex_test COMMAND mutex_test)
 
 add_executable(atomic_unittest Atomic_unittest.cc)
 target_link_libraries(atomic_unittest muduo_base)
